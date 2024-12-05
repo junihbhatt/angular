@@ -1,0 +1,148 @@
+<div class="row pt-3 d-none">
+    <div class="col-3">
+        <div *ngIf="isDiv1Visible" class="bg-danger p-3 text-center">
+            <h4>Div 1</h4>
+        </div>
+
+    </div>
+    <div class="col-3">
+        <div *ngIf="isDiv2Visible" class="bg-warning p-3 text-center">
+            <h4>Div 2</h4>
+        </div>
+    </div>
+    <div class="col-3">
+        <div *ngIf="val1 === val2" class="bg-success p-3 text-center">
+            <h4>Div 3</h4>
+        </div>
+    </div>
+    <div class="col-3">
+        <div *ngIf="isActive && stateVal==='Srinagar'" class="bg-primary p-3 text-center">
+            <h4>Div 4</h4>
+        </div>
+    </div>
+</div>
+<div class="row pt3 d-none">
+    <div class="col-3 text-center mt-1">
+        <button (click)="hideDiv1()" class="btn btn-danger mx-2">Hide</button>
+        <button (click)="showDiv1()" class="btn btn-success mx-2">Show</button>
+    </div>
+    <div class="col-3 text-center mt-1">
+        <button (click)="toggleDiv2()" class="btn btn-primary mx-2">Toggle Div</button>
+    </div>
+    <div class="flex col-3 text-center mt-1">
+        <input class="col-6" type="text" placeholder="val 1" [(ngModel)]="val1">
+        <input class="col-6" type="text" placeholder="val 2" [(ngModel)]="val2">
+    </div>
+    <div class="flex col-3 text-center mt-1">
+        <input class="col-6" [(ngModel)]="isActive" type="checkbox">
+        <select name="" id="" [(ngModel)]="stateVal">
+            <option value="">--select--</option>
+            <option *ngFor="let city of cityArray" value="{{city}}">{{city}}</option>
+        </select>
+    </div>
+</div>
+<ul class="d-none ">
+    <li *ngFor="let city of cityArray">{{city}}</li>
+</ul>
+<select class="d-none" name="" id="">
+    <option value="">Select Student</option>
+    <option *ngFor="let student of studentList" [value]="student.s_id">{{student.s_name}}</option>
+</select>
+<table class="table table-bordered w-50 d-none">
+    <thead>
+        <tr>
+            <th>S No</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let stud of studentList; let sr = index">
+            <td>{{sr+1}}</td>
+            <td>{{stud.s_name}}</td>
+            <td>{{stud.city}}</td>
+            <td>
+                <span *ngIf="stud.isActive">Active</span>
+                <span *ngIf="!stud.isActive">Not Active</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<div class="row pt-3">
+    <div class="col-3">
+        <div *ngIf="isDiv1Visible" class="p-3 text-center" [ngClass]="div1BGColor">
+            <h4>Div 1</h4>
+        </div>
+
+    </div>
+    <div class="col-3">
+        <div class="p-3 text-center" [ngClass]="isDiv2Active ? 'bg-success' : 'bg-danger'">
+            <h4>Div 2</h4>
+        </div>
+    </div>
+    <div class="col-3">
+        <div  class="p-3 text-center" [ngClass]="val1 === val2 ? 'bg-success' : 'bg-danger'">
+            <h4>Div 3</h4>
+        </div>
+    </div>
+    <div class="col-3">
+        <div  class=" p-3 text-center" [ngClass]="isActive ? 'bg-primary' : ''">
+            <h4>Div 4</h4>
+        </div>
+    </div>
+</div>
+<div class="row pt3">
+    <div class="col-3 text-center mt-1">
+        <button (click)="addBlueClass()" class="btn btn-primary mx-2">Blue</button>
+        <button (click)="addRedClass()" class="btn btn-danger mx-2">Red</button>
+    </div>
+    <div class="col-3 text-center mt-1">
+        <button (click)="toggleDivStatus()" class="btn mx-2" [ngClass]="!isDiv2Active ? 'bg-success' : 'bg-danger'">{{!isDiv2Active ? 'Activate' : 'Stop'}}</button>
+    </div>
+    <div class="flex col-3 text-center mt-1">
+        <input class="col-6" type="text" placeholder="val 1" [(ngModel)]="val1">
+        <input class="col-6" type="text" placeholder="val 2" [(ngModel)]="val2">
+    </div>
+    <div class="flex col-3 text-center mt-1">
+        <input class="col-6" [(ngModel)]="isActive" type="checkbox">
+        <select name="" id="" [(ngModel)]="stateVal">
+            <option value="">--select--</option>
+            <option *ngFor="let city of cityArray" value="{{city}}">{{city}}</option>
+        </select>
+    </div>
+</div>
+
+<table class="table table-bordered w-50 mt-5">
+    <thead>
+        <tr>
+            <th>S No</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Marks</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let stud of studentList; let sr = index">
+            <td>{{sr+1}}</td>
+            <td>{{stud.s_name}}</td>
+            <td [ngStyle]="{'background-color':stud.gender=='Male' ? '#aec3ff': 'pink'}">{{stud.gender}}</td>
+            <td>{{stud.city}}</td>
+            <td>
+                <div class="progress">
+                    <div class="progress-bar" [ngStyle]="{'width': stud.marks+'%', 'background-color':stud.marks >= 80 ? '#aec3ff' : (stud.marks < 70 ? 'red' : '#ffb13b')}"></div>
+                </div>
+                {{stud.marks}}</td>
+            <td class="text-light" [ngClass]="stud.isActive ? 'bg-success' : 'bg-danger'">
+                <span *ngIf="stud.isActive">Active</span>
+                <span *ngIf="!stud.isActive">Not Active</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div [ngStyle]="styleData">This is test div</div>

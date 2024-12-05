@@ -1,0 +1,24 @@
+<app-alert-component [msg]="'welcome to GET-API page'" [alertClass]="'alert-primary'"/>
+<div class="row">
+    <div class="col-2"><button class="btn btn-primary w-100" (click)="getAllUsers()">Get users Data</button></div>
+    <div class="col-5">
+        <select name="" id="" class="form-select w-100">
+            <option value="">--Select--</option>
+            @for (item of userList; track $index) {
+                <option [value]="item.id">{{item.name}}</option>
+            }
+        </select>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-2"><button class="btn btn-primary w-100" (click)="getAllcustomers()">Get customers Data</button></div>
+    <div class="col-5">
+        <select name="" id="" class="form-select w-100">
+            <option value="">--Select--</option>
+            @for (item of customerList; track $index) {
+                <option [value]="item.userId">{{item.userName}} - {{item.emailId}}</option>
+            }
+        </select>
+    </div>
+</div>
+<app-cs-button [btnClass]="'btn btn-primary'" [btnText]="'Save Record'" />

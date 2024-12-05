@@ -1,0 +1,139 @@
+<h1 class="my-3">If Else Module</h1>
+<div class="row">
+  <div class="col-3">
+    @if (isDiv1Visible) {
+    <div class="bg-danger p-3 text-center">
+      <h4>Div 1</h4>
+      <span>Click hide button to hide me</span>
+    </div>
+    }
+  </div>
+  <div class="col-3">
+    @if (isDiv2Visible) {
+    <div class="bg-warning p-3 text-center">
+      <h4>Div 2 </h4>
+      <span>warning</span>
+    </div>
+    } @else {
+    <div class="bg-success p-3 text-center">
+      <h4>Div 2 </h4>
+      <span>success</span>
+    </div>
+    }
+  </div>
+  <div class="col-3">
+    @if(!val1 || !val2){
+    <div class="bg-danger p-3 text-center">
+      <h4>Div 3</h4>
+      <span>Value 1 or Value 2 is empty</span>
+    </div>
+    } @else if (val1 > val2) {
+    <div class="bg-warning p-3 text-center">
+      <h4>Div 3</h4>
+      <span>Value 1 is greater than Value 2</span>
+    </div>
+    }@else if (val1 < val2) {
+    <div class="bg-primary p-3 text-center">
+      <h4>Div 3</h4>
+      <span>Value 1 is less than Value 2</span>
+    </div>
+    }@else {
+    <div class="bg-success p-3 text-center">
+      <h4>Div 3</h4>
+      <span>Value 1 and Value 2 are equal</span>
+    </div>
+    }
+  </div>
+  <div class="col-3">
+    @if (isActive) {
+    <div class="p-3 text-center" [ngClass]="stateVal==='' ? 'bg-warning' : 'bg-success'">
+      <h4>Div 4</h4>
+      @if (stateVal === '') {
+        <span>Please select a state</span>
+      }@else{
+        <span>{{stateVal}}</span>
+      }
+    </div>
+    }@else{
+        <div class="bg-danger p-3 text-center">
+            <h4>Div 4</h4>
+            <span>Please hit checkbox</span>
+          </div>
+    }
+  </div>
+</div>
+<div class="row pt3">
+  <div class="col-3 text-center mt-1">
+    <button (click)="hideDiv1()" class="btn btn-danger mx-2">Hide</button>
+    <button (click)="showDiv1()" class="btn btn-success mx-2">Show</button>
+  </div>
+  <div class="col-3 text-center mt-1">
+    <button (click)="toggleDiv2()" class="btn btn-primary mx-2">
+      Toggle Div
+    </button>
+  </div>
+  <div class="flex col-3 text-center mt-1">
+    <input class="col-6" type="text" placeholder="val 1" [(ngModel)]="val1" />
+    <input class="col-6" type="text" placeholder="val 2" [(ngModel)]="val2" />
+  </div>
+  <div class="flex col-3 text-center mt-1">
+    <input class="col-6" [(ngModel)]="isActive" type="checkbox" />
+    <select name="" id="" [(ngModel)]="stateVal">
+      <option value="">--select--</option>
+      <option *ngFor="let city of cityArray" value="{{ city }}">
+        {{ city }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>S no</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Marks</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (student of studentList; track $index) {
+            <tr>
+                <td>{{student.s_id}}</td>
+                <td>{{student.s_name | titlecase}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.city}}</td>
+                <td><div class="progress">
+                    <div class="progress-bar" [ngStyle]="{'width' : student.marks+'%'}">{{student.marks}}</div>
+                </div></td>
+                <td [ngStyle]="{'background-color': student.isActive ? '#aec3ff' : 'pink'}">{{student.isActive ? 'Active' : 'Offline'}}</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h3>{{currentDate | date:'dd/MMM/yyy' | uppercase}}</h3>
+<select name="" id="" [(ngModel)]="dayVal">
+    <option value="1">Sunday</option>
+    <option value="2">Monday</option>
+    <option value="3">tuesday</option>
+</select>
+<h3>Today is: 
+    @switch (dayVal) {
+        @case('1'){
+            Sunday
+        }
+        @case('2'){
+            Monday
+        }
+        @case('3'){
+            Tuesday
+        }
+        @default {
+            Please Select a day from dropdown
+        }
+    }
+</h3>
+<h3>{{myData | json}}</h3>
+<h3>{{currentTime | async | date:'hh:mm:ss'}}</h3>
